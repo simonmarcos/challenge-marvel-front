@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
+import LoginComponent from "./shared/login/login";
 
 const App = () => {
   return (
     <Container>
-      <div>Hola mundos</div>
+      <LoginComponent />
     </Container>
   );
 };
