@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import LoginComponent from "../../components/login";
+import { axiosInstance } from "../../config/axios-interceptor";
 import { ILoginModel } from "../../shared/model/Login";
-import { singInAplications as singInApplications } from "../../store/slices/loginSlice";
 import { AppDispatch } from "../../store/store";
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -17,7 +17,12 @@ const LoginPage = () => {
       password: formData.get("password")?.toString(),
     };
 
-    dispatch(singInApplications(data));
+    try {
+      const response = (await axiosInstance.post("login", data)).data;
+      console.log("EASDSA ", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return <LoginComponent handleSubmit={handleSubmit} />;
