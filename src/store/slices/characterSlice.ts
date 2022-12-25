@@ -3,7 +3,7 @@ import {
   ICharacterModel,
   IQueryParamsCharacter,
 } from "../../shared/model/Character";
-import axios from "axios";
+import { axiosInstance } from "../../config/axios-interceptor";
 export interface CharacterState {
   characters: ICharacterModel[];
   error: string;
@@ -16,10 +16,10 @@ const initialState: CharacterState = {
   loading: false,
 };
 
-const apiUrl = "api/character";
+const apiUrl = "character";
 
 export const getEntities = createAsyncThunk(
-  "accounts/fetch_character_list",
+  "character/fetch_list",
   async (values: IQueryParamsCharacter) => {
     const requestUrl = `${apiUrl}/findAllByUser?user=${values.userId}`;
     // ${
@@ -27,7 +27,7 @@ export const getEntities = createAsyncThunk(
     //   `page=${values.page}&size=${values.size}&sort=${values.sort}`
     // }`;
 
-    return await axios.get<ICharacterModel[]>(requestUrl);
+    return await axiosInstance.get<ICharacterModel[]>(requestUrl);
   }
 );
 

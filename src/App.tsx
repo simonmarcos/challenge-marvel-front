@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
+import { Container } from "@mui/material";
 
-import { AppDispatch } from "./store/store";
-import { getEntities } from "./store/slices/characterSlice";
-
-import { useDispatch } from "react-redux";
-
-function App() {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(getEntities({ userId: 1 }));
-  }, []);
-
-  return <div className="App">asdasd</div>;
-}
+const App = () => {
+  return (
+    <Container>
+      <div>Hola mundos</div>
+    </Container>
+  );
+};
 
 export default App;
