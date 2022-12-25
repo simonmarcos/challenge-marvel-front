@@ -12,7 +12,8 @@ export interface IQueryParamsCharacter {
   page?: number;
   size?: number;
   sort?: string;
-  characterEntity: ICharacterModel;
+  id?: number;
+  userId?: number;
 }
 
 export const defaultValue: Readonly<ICharacterModel> = {};
