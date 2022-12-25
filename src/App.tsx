@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
-import LoginComponent from "./shared/login/login";
+import LoginPage from "./entities/login/Login";
 
 const App = () => {
   return (
     <Container>
-      <LoginComponent />
+      <LoginPage />
     </Container>
   );
 };

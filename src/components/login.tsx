@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,17 +17,10 @@ import { useTranslation } from "react-i18next";
 
 const theme = createTheme();
 
-const LoginComponent = () => {
+const LoginComponent = (props: {
+  handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
+}) => {
   const { t: translate } = useTranslation("login");
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,7 +42,7 @@ const LoginComponent = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={props.handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
