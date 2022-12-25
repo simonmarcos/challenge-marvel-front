@@ -1,25 +1,25 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import LoginComponent from "../../components/login";
 import { axiosInstance } from "../../config/axios-interceptor";
 import { ILoginModel } from "../../shared/model/Login";
-import { AppDispatch } from "../../store/store";
+import { IResponseLoginModel } from "../../shared/model/ResponseLogin";
 
 const LoginPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    const data: ILoginModel = {
+    const loginData: ILoginModel = {
       email: formData.get("email")?.toString(),
       password: formData.get("password")?.toString(),
     };
 
     try {
-      const response = (await axiosInstance.post("login", data)).data;
-      console.log("EASDSA ", response);
+      const response: IResponseLoginModel = (
+        await axiosInstance.post("/login", loginData)
+      ).data;
+
+      window.localStorage.setItem("loginStorage", JSON.stringify(response));
     } catch (error) {
       console.log(error);
     }
