@@ -1,0 +1,15 @@
+{
+  "app": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "label": {
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "rememberMe": "Recuérdame",
+        "signInButton": "Iniciar Sesión",
+        "forgotPassword": "¿Olvidó su contraseña?",
+        "signUp": "¿No tiene una cuenta? Registrarse"
+      }
+    }
+  }
+}

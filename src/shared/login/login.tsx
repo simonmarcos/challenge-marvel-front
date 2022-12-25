@@ -13,9 +13,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useTranslation } from "react-i18next";
+
 const theme = createTheme();
 
 const LoginComponent = () => {
+  const { t: translate } = useTranslation("login");
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -41,7 +45,7 @@ const LoginComponent = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {translate("app.login.title")}
           </Typography>
           <Box
             component="form"
@@ -54,7 +58,7 @@ const LoginComponent = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={translate("app.login.label.email")}
               name="email"
               autoComplete="email"
               autoFocus
@@ -64,14 +68,14 @@ const LoginComponent = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={translate("app.login.label.password")}
               type="password"
               id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label={translate("app.login.label.rememberMe")}
             />
             <Button
               type="submit"
@@ -79,17 +83,17 @@ const LoginComponent = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {translate("app.login.label.signInButton")}
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  {translate("app.login.label.forgotPassword")}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {translate("app.login.label.signUp")}
                 </Link>
               </Grid>
             </Grid>

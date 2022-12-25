@@ -1,0 +1,15 @@
+{
+  "app": {
+    "login": {
+      "title": "Sign in",
+      "placeholder": {
+        "email": "Email Address",
+        "password": "Password",
+        "rememberMe": "Remember Me",
+        "signInButton": "Sign In",
+        "forgotPassword": "Forgot password?",
+        "signUp": "Don't have an account? Sign Up"
+      }
+    }
+  }
+}
