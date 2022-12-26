@@ -12,7 +12,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function HomeComponent(props: ICharacterModel) {
+export default function CharacterComponent(props: ICharacterModel) {
   return (
     <Paper
       sx={{

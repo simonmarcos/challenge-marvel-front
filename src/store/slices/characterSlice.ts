@@ -1,4 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from "@reduxjs/toolkit";
 import {
   ICharacterModel,
   IQueryParamsCharacter,
@@ -18,7 +24,20 @@ const initialState: CharacterState = {
 
 const apiUrl = "character";
 
-export const getEntities = createAsyncThunk(
+export const getEntitiesForMarvelAPI = createAsyncThunk(
+  "character/fetch_list",
+  async (values: IQueryParamsCharacter) => {
+    const requestUrl = `${apiUrl}/findAllFromMarvelApi`;
+    // ${
+    //   values.sort &&
+    //   `page=${values.page}&size=${values.size}&sort=${values.sort}`
+    // }`;
+
+    return await axiosInstance.get<ICharacterModel[]>(requestUrl);
+  }
+);
+
+export const getEntitiesByUser = createAsyncThunk(
   "character/fetch_list",
   async (values: IQueryParamsCharacter) => {
     const requestUrl = `${apiUrl}/findAllByUser?user=${values.userId}`;
@@ -36,19 +55,28 @@ export const characterSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getEntities.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getEntities.fulfilled, (state, action) => {
-      state.loading = false;
-      state.characters = action.payload.data;
-      state.error = "";
-    });
-    builder.addCase(getEntities.rejected, (state, action) => {
-      state.loading = false;
-      state.characters = [];
-      state.error = action.error.message || "Se produjo un error";
-    });
+    builder.addMatcher(
+      isPending(getEntitiesForMarvelAPI, getEntitiesByUser),
+      (state) => {
+        state.loading = true;
+      }
+    );
+    builder.addMatcher(
+      isFulfilled(getEntitiesForMarvelAPI, getEntitiesByUser),
+      (state, action) => {
+        state.loading = false;
+        state.characters = action.payload.data;
+        state.error = "";
+      }
+    );
+    builder.addMatcher(
+      isRejected(getEntitiesForMarvelAPI, getEntitiesByUser),
+      (state, action) => {
+        state.loading = false;
+        state.characters = [];
+        state.error = action.error.message || "Se produjo un error";
+      }
+    );
   },
 });
 

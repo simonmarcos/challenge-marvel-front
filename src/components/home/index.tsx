@@ -1,7 +1,7 @@
-import React from "react";
+import CharacterPage from "../../pages/character";
 
 const HomeComponent = () => {
-  return <>SOY EL HOME</>;
+  return <CharacterPage />;
 };
 
 export default HomeComponent;
