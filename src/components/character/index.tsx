@@ -31,18 +31,18 @@ export default function CharacterComponent(props: ICharacterModel) {
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
+          <Grid item container direction="column" spacing={2}>
+            <Grid item>
               <Typography gutterBottom variant="subtitle1" component="div">
-                {props.name?.toString()}
+                {props.name}
               </Typography>
               <Typography variant="body2" gutterBottom>
                 {props.description !== ""
-                  ? props.description?.toString()
+                  ? props.description
                   : "Sin descripción"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                ID: {props.id?.toString()}
+                ID: {props.id}
               </Typography>
             </Grid>
           </Grid>
