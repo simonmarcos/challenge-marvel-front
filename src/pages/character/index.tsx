@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CharacterComponent from "../../components/character";
-import WithAuth from "../../shared/hoc/authenticated";
+import withAuth from "../../shared/hoc/authenticated";
 import { ICharacterModel } from "../../shared/model/Character";
 import { getEntitiesForMarvelAPI } from "../../store/slices/characterSlice";
 import { AppDispatch, RootState } from "../../store/store";
@@ -36,4 +36,4 @@ const CharacterPage = () => {
   );
 };
 
-export default WithAuth(CharacterPage);
+export default withAuth(CharacterPage);
