@@ -22,7 +22,7 @@ const initialState: CharacterState = {
   loading: false,
 };
 
-const apiUrl = "character";
+const apiUrl = "/api/character";
 
 export const getEntitiesForMarvelAPI = createAsyncThunk(
   "character/fetch_list",

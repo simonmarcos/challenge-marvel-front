@@ -37,7 +37,9 @@ export default function CharacterComponent(props: ICharacterModel) {
                 {props.name?.toString()}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {props.description?.toString()}
+                {props.description !== ""
+                  ? props.description?.toString()
+                  : "Sin descripción"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 ID: {props.id?.toString()}

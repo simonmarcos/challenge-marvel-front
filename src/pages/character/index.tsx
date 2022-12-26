@@ -18,13 +18,15 @@ const CharacterPage = () => {
 
   return characterEntity.length > 0 ? (
     <>
-      {characterEntity.forEach((character) => {
-        <CharacterComponent
-          id={character.id}
-          name={character.name}
-          description={character.description}
-          thumbnail={character.thumbnail}
-        />;
+      {characterEntity.map((character) => {
+        return (
+          <CharacterComponent
+            id={character.id}
+            name={character.name}
+            description={character.description}
+            thumbnail={character.thumbnail}
+          />
+        );
       })}
     </>
   ) : (
