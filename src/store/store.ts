@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import characterSlice from "./slices/characterSlice";
+import authenticationSlice from "./slices/authenticationSlice";
 
 export const store = configureStore({
   reducer: {
     characterSlice,
+    authenticationSlice,
   },
 });
 

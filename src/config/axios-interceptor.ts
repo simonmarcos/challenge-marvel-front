@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token: string | null = window.localStorage.getItem("loginStorage");
+    const token: string | null = window.localStorage.getItem("login");
 
     if (config.headers) {
       if (token) config.headers.Authorization = "Bearer " + token;

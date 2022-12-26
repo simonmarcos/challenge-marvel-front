@@ -12,6 +12,7 @@ export interface IQueryParamsUser {
   size?: number;
   sort?: string;
   id?: number;
+  email?: string;
 }
 
 export const defaultValue: Readonly<IUserModel> = {};
