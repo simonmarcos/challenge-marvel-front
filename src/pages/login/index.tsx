@@ -6,9 +6,11 @@ import { AppDispatch, RootState } from "../../store/store";
 
 import { getLoginUser } from "../../store/slices/authenticationSlice";
 import { getEntityByEmail as getUserByEmail } from "../../store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const [emailValue, setEmailValue] = useState<string>("");
 
@@ -19,8 +21,9 @@ const LoginPage = () => {
   useEffect(() => {
     if (isAuthenticated && emailValue !== "") {
       dispatch(getUserByEmail(emailValue!));
+      navigate("/home");
     }
-  }, [isAuthenticated, emailValue, dispatch]);
+  }, [isAuthenticated]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
