@@ -22,7 +22,7 @@ export const getLoginUser = createAsyncThunk(
     );
 
     if (response.status === 200) {
-      window.localStorage.setItem("login", response.data.token!);
+      window.localStorage.setItem("token", response.data.token!);
     }
   }
 );
