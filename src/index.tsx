@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+
+import { RouterProvider } from "react-router-dom";
+import { router } from "./shared/routes";
 
 import "./config/i18next-config";
 
@@ -12,9 +14,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>
 );
