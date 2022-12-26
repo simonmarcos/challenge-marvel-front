@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import NavbarPage from "../../pages/navbar";
 
 const LayoutPublic = () => {
   return (
     <>
-      <nav>NAV BAR</nav>
+      <NavbarPage />
       <main>
         <Outlet />
       </main>
