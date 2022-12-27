@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Dispatch } from "@reduxjs/toolkit";
 
 import { axiosInstance } from "../../config/axios-interceptor";
 import { ILoginModel } from "../../shared/model/Login";
@@ -27,10 +27,29 @@ export const getLoginUser = createAsyncThunk(
   }
 );
 
+export const clearAuthentication = () => (dispatch: Dispatch) => {
+  dispatch(clearAuth());
+};
+
 export const AuthenticationSlice = createSlice({
   name: "authentication",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    validIfExistToken: (state) => {
+      if (window.localStorage.getItem("token")) {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.isSuccess = true;
+      }
+    },
+    clearAuth: (state) => {
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getLoginUser.pending, (state) => {
       state.loading = true;
@@ -50,4 +69,5 @@ export const AuthenticationSlice = createSlice({
   },
 });
 
+export const { validIfExistToken, clearAuth } = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const TIMEOUT = 1 * 60 * 1000;
 axios.defaults.timeout = TIMEOUT;
@@ -21,3 +21,23 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
+  const onRequestSuccess = (config: any) => {
+    return config;
+  };
+  const onResponseSuccess = (response: any) => response;
+  const onResponseError = (err: { status: any; response: { status: any } }) => {
+    const status = err.status || (err.response ? err.response.status : 0);
+    if (status === 403 || status === 401) {
+      onUnauthenticated();
+      window.localStorage.setItem("token", "");
+    }
+    return Promise.reject(err);
+  };
+
+  axiosInstance.interceptors.request.use(onRequestSuccess);
+  axiosInstance.interceptors.response.use(onResponseSuccess, onResponseError);
+};
+
+export default setupAxiosInterceptors;

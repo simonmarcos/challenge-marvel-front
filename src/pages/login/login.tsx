@@ -4,7 +4,10 @@ import LoginComponent from "../../components/login/login-component";
 import { ILoginModel } from "../../shared/model/Login";
 import { AppDispatch, RootState } from "../../store/store";
 
-import { getLoginUser } from "../../store/slices/authenticationSlice";
+import {
+  getLoginUser,
+  validIfExistToken,
+} from "../../store/slices/authenticationSlice";
 import { getEntityByEmail as getUserByEmail } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -19,8 +22,12 @@ const LoginPage = () => {
   );
 
   useEffect(() => {
-    if (isAuthenticated && emailValue !== "") {
-      dispatch(getUserByEmail(emailValue!));
+    dispatch(validIfExistToken());
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // dispatch(getUserByEmail(emailValue!));
       navigate("/home");
     }
   }, [isAuthenticated]);
