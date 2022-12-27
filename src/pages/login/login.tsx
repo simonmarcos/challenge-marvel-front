@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoginComponent from "../../components/login";
+import LoginComponent from "../../components/login/login-component";
 import { ILoginModel } from "../../shared/model/Login";
 import { AppDispatch, RootState } from "../../store/store";
 

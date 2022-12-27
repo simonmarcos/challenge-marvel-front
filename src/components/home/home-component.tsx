@@ -1,4 +1,4 @@
-import CharacterPage from "../../pages/character";
+import CharacterPage from "../../pages/character/character";
 
 const HomeComponent = () => {
   return <CharacterPage />;

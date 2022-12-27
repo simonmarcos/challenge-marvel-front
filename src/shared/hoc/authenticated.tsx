@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import LoginPage from "../../pages/login";
+import LoginPage from "../../pages/login/login";
 import { RootState } from "../../store/store";
 
 const withAuth = (Component: any) => {
