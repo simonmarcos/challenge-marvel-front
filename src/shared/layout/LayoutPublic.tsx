@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import NavbarPage from "../../pages/navbar";
+import withAuth from "../hoc/authenticated";
 
 const LayoutPublic = () => {
   return (
@@ -13,4 +14,4 @@ const LayoutPublic = () => {
   );
 };
 
-export default LayoutPublic;
+export default withAuth(LayoutPublic);
