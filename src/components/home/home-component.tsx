@@ -1,7 +1,5 @@
-import CharacterPage from "../../pages/character/character";
-
 const HomeComponent = () => {
-  return <CharacterPage />;
+  return <>HOME COMPONENT</>;
 };
 
 export default HomeComponent;

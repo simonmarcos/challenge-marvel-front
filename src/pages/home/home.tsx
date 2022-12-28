@@ -1,8 +1,8 @@
-import HomeComponent from "../../components/home/home-component";
 import withAuth from "../../shared/hoc/authenticated";
+import CharacterPage from "../character/character";
 
 const HomePage = () => {
-  return <HomeComponent />;
+  return <CharacterPage />;
 };
 
 export default withAuth(HomePage);

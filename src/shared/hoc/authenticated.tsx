@@ -1,11 +1,11 @@
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoginPage from "../../pages/login/login";
-import { AppDispatch, RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import LoginPage from "../../pages/login/login";
 import { setAuthentication } from "../../store/slices/authenticationSlice";
+import { AppDispatch, RootState } from "../../store/store";
 
-const withAuth = (Component: any) => {
+const withAuth = (Component: FC) => {
   const WrappedComponent = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
