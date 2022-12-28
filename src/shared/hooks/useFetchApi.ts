@@ -20,7 +20,7 @@ const INITIAL_FETCH_VALUES: IUseFetchAPI = {
 const useFetchAPI = () => {
   const [initialValues, setInitialValues] = useState(INITIAL_FETCH_VALUES);
 
-  const execute = (httpMethod: string, path: string, data?: any) => {
+  const execute = (httpMethod: string, path: string, data?: Object[]) => {
     switch (httpMethod) {
       case HTTP_METHOD.GET:
         axiosInstance
