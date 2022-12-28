@@ -1,24 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CharacterComponent from "../../components/character/character-component";
+import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterModel } from "../../shared/model/Character";
-import { getEntitiesForMarvelAPI } from "../../store/slices/characterSlice";
 import { AppDispatch, RootState } from "../../store/store";
 
 const CharacterPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { data, isPending, isSuccess, error, execute } = useFetchAPI();
 
   const characterEntity: ICharacterModel[] = useSelector(
     (state: RootState) => state.characterSlice.characters
   );
 
   useEffect(() => {
-    dispatch(getEntitiesForMarvelAPI({}));
+    // dispatch(getEntitiesForMarvelAPI({}));
+    execute("get", "/character/findAllFromMarvelApi");
   }, []);
 
-  return characterEntity.length > 0 ? (
+  return !isPending ? (
     <>
-      {characterEntity.map((character) => {
+      {data.map((character: any) => {
         return (
           <CharacterComponent
             key={`index ${character.id}`}
