@@ -1,9 +1,10 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { axiosInstance } from "../../config/axios-interceptor";
+import { HTTP_METHOD } from "../utils/const";
 
 interface IUseFetchAPI {
-  data: any;
+  data: Object[];
   isPending: boolean;
   isSuccess: boolean;
   error: any;
@@ -21,7 +22,7 @@ const useFetchAPI = () => {
 
   const execute = (httpMethod: string, path: string, data?: any) => {
     switch (httpMethod) {
-      case "get":
+      case HTTP_METHOD.GET:
         axiosInstance
           .get(`/api${path}`)
           .then((response) => {
@@ -41,7 +42,7 @@ const useFetchAPI = () => {
             });
           });
         break;
-      case "post":
+      case HTTP_METHOD.POST:
         axiosInstance
           .post(`/api${path}`, data)
           .then((response) => {

@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import CharacterComponent from "../../components/character/character-component";
 import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterModel } from "../../shared/model/Character";
+import { HTTP_METHOD } from "../../shared/utils/const";
 
 const CharacterPage = () => {
   const { data, isPending, execute } = useFetchAPI();
   const characterEntity: ICharacterModel[] = data;
 
   useEffect(() => {
-    execute("get", "/character/findAllFromMarvelApi");
+    execute(HTTP_METHOD.GET, "/character/findAllFromMarvelApi");
   }, []);
 
   return !isPending && characterEntity.length > 0 ? (
