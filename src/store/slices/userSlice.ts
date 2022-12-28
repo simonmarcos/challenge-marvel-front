@@ -27,7 +27,7 @@ export const getEntity = createAsyncThunk(
   async (value: string) => {
     const requestUrl = apiUrl;
 
-    return (await axiosInstance.post(requestUrl, value)).data;
+    return await axiosInstance.post(requestUrl, value);
   }
 );
 
@@ -36,7 +36,7 @@ export const getEntityByEmail = createAsyncThunk(
   async (value: string) => {
     const requestUrl = `${apiUrl}/findByEmail?email=${value}`;
 
-    return (await axiosInstance.get<IUserModel>(requestUrl)).data;
+    return await axiosInstance.get<IUserModel>(requestUrl);
   }
 );
 
