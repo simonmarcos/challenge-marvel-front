@@ -5,6 +5,7 @@ import { ILoginModel } from "../../shared/model/Login";
 import { AppDispatch, RootState } from "../../store/store";
 
 import { useNavigate } from "react-router-dom";
+import { ILoggedInModel } from "../../shared/model/LoggedIn";
 import { getLoginUser } from "../../store/slices/authenticationSlice";
 import { getEntityByEmail as getUserByEmail } from "../../store/slices/userSlice";
 
@@ -16,13 +17,13 @@ const LoginPage = () => {
     (state: RootState) => state.authenticationSlice.isAuthenticated
   );
 
-  const emailUserLogged = useSelector(
-    (state: RootState) => state.authenticationSlice.user
-  );
-
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(getUserByEmail(emailUserLogged));
+      const loggedIn: ILoggedInModel = JSON.parse(
+        window.localStorage.getItem("loggedIn")!
+      );
+
+      dispatch(getUserByEmail(loggedIn?.email!));
       navigate("/home");
     }
   }, [isAuthenticated]);

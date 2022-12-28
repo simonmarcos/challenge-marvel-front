@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, Dispatch } from "@reduxjs/toolkit";
 
 import { axiosInstance } from "../../config/axios-interceptor";
+import { ILoggedInModel } from "../../shared/model/LoggedIn";
 import { ILoginModel } from "../../shared/model/Login";
 import { IResponseLoginModel } from "../../shared/model/ResponseLogin";
 
 const initialState = {
-  user: "",
   loading: false,
   isAuthenticated: false,
   isSuccess: false,
@@ -23,10 +23,13 @@ export const getLoginUser = createAsyncThunk(
     );
 
     if (response.status === 200) {
-      window.localStorage.setItem("token", response.data.token!);
-    }
+      const loggedIn: ILoggedInModel = {
+        token: response.data.token!,
+        email: data.email!,
+      };
 
-    return data.email;
+      window.localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+    }
   }
 );
 
@@ -39,7 +42,7 @@ export const AuthenticationSlice = createSlice({
   initialState: initialState,
   reducers: {
     setAuthentication: (state) => {
-      if (window.localStorage.getItem("token")) {
+      if (window.localStorage.getItem("loggedIn")) {
         return {
           ...state,
           isAuthenticated: true,
@@ -62,13 +65,11 @@ export const AuthenticationSlice = createSlice({
       state.isSuccess = false;
     });
     builder.addCase(getLoginUser.fulfilled, (state, action) => {
-      state.user = action.payload!;
       state.loading = false;
       state.isAuthenticated = true;
       state.isSuccess = true;
     });
     builder.addCase(getLoginUser.rejected, (state, action) => {
-      state.user = "";
       state.loading = false;
       state.error = action.error.message || "Se produjo un error";
       state.isSuccess = false;

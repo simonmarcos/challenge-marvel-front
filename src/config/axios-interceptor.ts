@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { ILoggedInModel } from "../shared/model/LoggedIn";
 
 const TIMEOUT = 1 * 60 * 1000;
 axios.defaults.timeout = TIMEOUT;
@@ -9,10 +10,11 @@ export const axiosInstance = axios.create({
 
 const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
   const onTokinIsValid = (config: AxiosRequestConfig | any) => {
-    const token: string | null = window.localStorage.getItem("token");
-
+    const loggedIn: ILoggedInModel = JSON.parse(
+      window.localStorage.getItem("loggedIn")!
+    );
     if (config.headers) {
-      if (token) config.headers.Authorization = "Bearer " + token;
+      if (loggedIn) config.headers.Authorization = "Bearer " + loggedIn.token;
     }
     return config;
   };
@@ -25,7 +27,7 @@ const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
     const status = err.response?.status || 0;
     if (status === 403 || status === 401) {
       onUnauthenticated();
-      window.localStorage.setItem("token", "");
+      window.localStorage.removeItem("loggedIn");
     }
     return Promise.reject(err);
   };

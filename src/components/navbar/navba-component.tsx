@@ -14,8 +14,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 import { IUserModel } from "../../shared/model/User";
+import { RootState } from "../../store/store";
 
 const pages = ["Characters", "My profile"];
 const settings = ["Logout"];
@@ -24,8 +24,6 @@ const NavbarComponent = () => {
   const userEntity: IUserModel = useSelector(
     (state: RootState) => state.userSlice.user
   );
-
-  console.warn("EESS ", userEntity);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null

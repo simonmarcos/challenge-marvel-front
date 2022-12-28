@@ -7,9 +7,9 @@ import { store } from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./shared/routes";
 
-import "./config/i18next-config";
-import setupAxiosInterceptors from "./config/axios-interceptor";
 import { bindActionCreators } from "@reduxjs/toolkit";
+import setupAxiosInterceptors from "./config/axios-interceptor";
+import "./config/i18next-config";
 import { clearAuthentication } from "./store/slices/authenticationSlice";
 
 const root = ReactDOM.createRoot(
