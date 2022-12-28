@@ -1,19 +1,29 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoginPage from "../../pages/login/login";
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { setAuthentication } from "../../store/slices/authenticationSlice";
 
 const withAuth = (Component: any) => {
   const WrappedComponent = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const isAuthenticated: boolean = useSelector(
+    const isAuthenticated = useSelector(
       (state: RootState) => state.authenticationSlice.isAuthenticated
     );
 
     useEffect(() => {
-      if (!isAuthenticated) navigate("/login", { replace: true });
+      dispatch(setAuthentication());
+    }, []);
+
+    useEffect(() => {
+      if (isAuthenticated) {
+        navigate("/home");
+      } else {
+        navigate("/login", { replace: true });
+      }
     }, [isAuthenticated]);
 
     return isAuthenticated ? <Component /> : <LoginPage />;
