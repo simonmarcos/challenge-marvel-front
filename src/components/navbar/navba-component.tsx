@@ -13,11 +13,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { IUserModel } from "../../shared/model/User";
 
 const pages = ["Characters", "My profile"];
 const settings = ["Logout"];
 
-function NavbarComponent() {
+const NavbarComponent = () => {
+  const userEntity: IUserModel = useSelector(
+    (state: RootState) => state.userSlice.user
+  );
+
+  console.warn("EESS ", userEntity);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -129,7 +138,9 @@ function NavbarComponent() {
               </Button>
             ))}
           </Box>
-
+          <Typography textAlign="center">
+            {`Bienvenido ${userEntity.firstName} ${userEntity.lastName}`}
+          </Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -163,5 +174,5 @@ function NavbarComponent() {
       </Container>
     </AppBar>
   );
-}
+};
 export default NavbarComponent;
