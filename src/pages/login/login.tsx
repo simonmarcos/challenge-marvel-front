@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginComponent from "../../components/login/login-component";
 import { ILoginModel } from "../../shared/model/Login";
@@ -12,15 +12,17 @@ const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const [emailValue, setEmailValue] = useState<string>("");
-
   const isAuthenticated = useSelector(
     (state: RootState) => state.authenticationSlice.isAuthenticated
   );
 
+  const emailUserLogged = useSelector(
+    (state: RootState) => state.authenticationSlice.user
+  );
+
   useEffect(() => {
-    if (isAuthenticated && emailValue !== "") {
-      dispatch(getUserByEmail(emailValue!));
+    if (isAuthenticated) {
+      dispatch(getUserByEmail(emailUserLogged));
       navigate("/home");
     }
   }, [isAuthenticated]);
@@ -37,7 +39,6 @@ const LoginPage = () => {
       password: passwordForm,
     };
 
-    setEmailValue(emailForm!);
     dispatch(getLoginUser(loginData));
   };
 
