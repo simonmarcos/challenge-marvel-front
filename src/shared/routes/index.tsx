@@ -6,18 +6,16 @@ import LayoutPublic from "../layout/LayoutPublic";
 
 export const router = createBrowserRouter([
   {
-    index: true,
-    path: "/",
-    element: <LoginPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
     path: "/",
     element: <LayoutPublic />,
     errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
         path: "/home",
         element: <HomePage />,
       },

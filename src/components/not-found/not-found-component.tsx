@@ -19,7 +19,7 @@ const NotFoundComponent = (props: { error: any }) => {
             <Typography variant="h6">
               The page you’re looking for doesn’t exist.
             </Typography>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <Button variant="contained">Back Home</Button>
             </Link>
           </Grid>

@@ -35,12 +35,14 @@ export const AuthenticationSlice = createSlice({
   name: "authentication",
   initialState: initialState,
   reducers: {
-    validIfExistToken: (state) => {
+    setAuthentication: (state) => {
       if (window.localStorage.getItem("token")) {
-        state.loading = false;
-        state.isAuthenticated = true;
-        state.isSuccess = true;
+        return {
+          ...state,
+          isAuthenticated: true,
+        };
       }
+      return state;
     },
     clearAuth: (state) => {
       return {
@@ -69,5 +71,5 @@ export const AuthenticationSlice = createSlice({
   },
 });
 
-export const { validIfExistToken, clearAuth } = AuthenticationSlice.actions;
+export const { setAuthentication, clearAuth } = AuthenticationSlice.actions;
 export default AuthenticationSlice.reducer;
