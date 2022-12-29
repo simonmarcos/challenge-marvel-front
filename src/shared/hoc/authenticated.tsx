@@ -19,9 +19,7 @@ const withAuth = (Component: FC) => {
     }, []);
 
     useEffect(() => {
-      if (isAuthenticated) {
-        navigate("/home");
-      } else {
+      if (!isAuthenticated) {
         navigate("/login", { replace: true });
       }
     }, [isAuthenticated]);

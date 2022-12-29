@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import CharacterPage from "../../pages/character/character";
 import HomePage from "../../pages/home/home";
 import LoginPage from "../../pages/login/login";
 import NotFoundPage from "../../pages/not-found/not-found";
@@ -11,13 +12,16 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
-        index: true,
         path: "/login",
         element: <LoginPage />,
       },
       {
         path: "/home",
         element: <HomePage />,
+      },
+      {
+        path: "/character",
+        element: <CharacterPage />,
       },
     ],
   },

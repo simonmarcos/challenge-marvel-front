@@ -12,15 +12,31 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IUserModel } from "../../shared/model/User";
 import { RootState } from "../../store/store";
 
-const pages = ["Characters", "My profile"];
+interface INavbarItemsModel {
+  title: string;
+  path: string;
+}
+
+const navbarItems: INavbarItemsModel[] = [
+  { title: "Characters", path: "/character" },
+  { title: "My profile", path: "myprofile" },
+];
+
 const settings = ["Logout"];
 
 const NavbarComponent = () => {
+  const navigate = useNavigate();
+
   const userEntity: IUserModel = useSelector(
     (state: RootState) => state.userSlice.user
+  );
+
+  const page: number = useSelector(
+    (state: RootState) => state.paginationSlice.page
   );
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -34,8 +50,8 @@ const NavbarComponent = () => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseNavMenu = (value: string) => {
+    navigate("/character");
   };
 
   const handleCloseUserMenu = () => {
@@ -51,7 +67,7 @@ const NavbarComponent = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/home"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -94,9 +110,9 @@ const NavbarComponent = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {navbarItems.map((item) => (
+                <MenuItem key={item.title}>
+                  <Typography textAlign="center">{item.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -121,13 +137,14 @@ const NavbarComponent = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {navbarItems.map((item) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={item.title}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <NavLink to={`${item.path}?page=${page}`}>
+                  {item.title}
+                </NavLink>
               </Button>
             ))}
           </Box>

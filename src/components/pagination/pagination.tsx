@@ -14,7 +14,7 @@ const PaginationComponent = (props: { handlePagination: any }) => {
       renderItem={(item) => (
         <PaginationItem
           component={Link}
-          to={`/home${item.page === 1 ? "" : `?page=${item.page}`}`}
+          to={`/character${item.page === 1 ? "" : `?page=${item.page}`}`}
           {...item}
           onClick={() => {
             props.handlePagination(item.page);
