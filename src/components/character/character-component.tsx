@@ -16,10 +16,12 @@ export default function CharacterComponent(props: ICharacterModel) {
   return (
     <Paper
       sx={{
-        p: 4,
+        p: 3,
         margin: "20px auto",
         maxWidth: 500,
+        minWidth: 500,
         flexGrow: 1,
+        borderRadius: 3,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
