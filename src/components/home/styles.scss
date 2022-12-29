@@ -1,9 +1,14 @@
 .container {
     display: grid;
     grid-template-rows: 12fr 1fr;
+    gap: 40px;
 }
 
 .group-of-characters {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.pagination {
+    margin: 0 auto;
 }

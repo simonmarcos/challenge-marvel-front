@@ -1,10 +1,12 @@
 import { ICharacterModel } from "../../shared/model/Character";
 import CharacterComponent from "../character/character-component";
-import PaginationLink from "../pagination/pagination";
+import PaginationComponent from "../pagination/pagination";
 
 import "./styles.scss";
 
 const HomeComponent = (props: { characterEntity: ICharacterModel[] }) => {
+  const handlePagination = (value: number) => {};
+
   const GroupOfCharactersComponent = () => (
     <>
       {props.characterEntity.map((character: ICharacterModel) => {
@@ -26,8 +28,8 @@ const HomeComponent = (props: { characterEntity: ICharacterModel[] }) => {
       <div className="group-of-characters">
         <GroupOfCharactersComponent />
       </div>
-      <div>
-        <PaginationLink />
+      <div className="pagination">
+        <PaginationComponent handlePagination={handlePagination} />
       </div>
     </div>
   );
