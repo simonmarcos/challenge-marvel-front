@@ -1,3 +1,4 @@
+import { isPending } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { axiosInstance } from "../../config/axios-interceptor";
@@ -66,7 +67,12 @@ const useFetchAPI = () => {
         break;
     }
   };
-  return { ...initialValues, execute };
+
+  const cleanInitialValues = () => {
+    setInitialValues({ ...initialValues, isPending: true, isSuccess: false });
+  };
+
+  return { ...initialValues, execute, cleanInitialValues };
 };
 
 export default useFetchAPI;
