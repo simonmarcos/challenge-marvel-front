@@ -1,11 +1,7 @@
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import {
-  Link,
-  MemoryRouter,
-  Route,
-  Routes,
-  useLocation,
+    Link, useLocation
 } from "react-router-dom";
 
 const PaginationComponent = () => {

@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import PaginationLink from "../../components/pagination/pagination";
+import HomeComponent from "../../components/home/home-component";
 import withAuth from "../../shared/hoc/authenticated";
 import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterModel } from "../../shared/model/Character";
 import { HTTP_METHOD } from "../../shared/utils/const";
-import CharacterPage from "../character/character";
 
 const HomePage = () => {
   const { data, isPending, execute } = useFetchAPI();
@@ -15,10 +14,7 @@ const HomePage = () => {
   }, []);
 
   return !isPending && characterEntity.length > 0 ? (
-    <>
-      <CharacterPage characterEntity={characterEntity} />
-      <PaginationLink />
-    </>
+    <HomeComponent characterEntity={characterEntity} />
   ) : (
     <>LOADING...</>
   );
