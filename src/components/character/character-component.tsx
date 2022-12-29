@@ -1,8 +1,11 @@
+import { useState } from "react";
+
 import ButtonBase from "@mui/material/ButtonBase";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
 import { ICharacterModel } from "../../shared/model/Character";
 
 const Img = styled("img")({
@@ -12,7 +15,16 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function CharacterComponent(props: ICharacterModel) {
+const CharacterComponent = (props: ICharacterModel) => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    characterID: number
+  ) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <Paper
       sx={{
@@ -46,10 +58,19 @@ export default function CharacterComponent(props: ICharacterModel) {
               <Typography variant="body2" color="text.secondary">
                 ID: {props.id}
               </Typography>
+              <Checkbox
+                checked={checked}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange(event, props.id!);
+                }}
+                inputProps={{ "aria-label": "controlled" }}
+              />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
     </Paper>
   );
-}
+};
+
+export default CharacterComponent;
