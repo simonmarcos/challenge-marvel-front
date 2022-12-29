@@ -16,6 +16,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IUserModel } from "../../shared/model/User";
 import { RootState } from "../../store/store";
 
+import "./styles.scss";
+
 interface INavbarItemsModel {
   title: string;
   path: string;
@@ -23,7 +25,7 @@ interface INavbarItemsModel {
 
 const navbarItems: INavbarItemsModel[] = [
   { title: "Characters", path: "/character" },
-  { title: "My profile", path: "myprofile" },
+  { title: "My profile", path: "/myprofile" },
 ];
 
 const settings = ["Logout"];
@@ -78,7 +80,7 @@ const NavbarComponent = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            <NavLink to={"/home"}>MARVEL</NavLink>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -112,7 +114,9 @@ const NavbarComponent = () => {
             >
               {navbarItems.map((item) => (
                 <MenuItem key={item.title}>
-                  <Typography textAlign="center">{item.title}</Typography>
+                  <NavLink to={`${item.path}?page=${page}`}>
+                    {item.title}
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -121,8 +125,6 @@ const NavbarComponent = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -134,7 +136,7 @@ const NavbarComponent = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            <NavLink to={"/home"}>MARVEL</NavLink>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navbarItems.map((item) => (
@@ -142,9 +144,7 @@ const NavbarComponent = () => {
                 key={item.title}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <NavLink to={`${item.path}?page=${page}`}>
-                  {item.title}
-                </NavLink>
+                <NavLink to={`${item.path}?page=${page}`}>{item.title}</NavLink>
               </Button>
             ))}
           </Box>

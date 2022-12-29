@@ -9,7 +9,6 @@ const LayoutPublic = () => {
       <main>
         <Outlet />
       </main>
-      <footer>FOOTER</footer>
     </>
   );
 };
