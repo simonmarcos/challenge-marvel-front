@@ -16,8 +16,8 @@ export default function CharacterComponent(props: ICharacterModel) {
   return (
     <Paper
       sx={{
-        p: 2,
-        margin: "auto",
+        p: 4,
+        margin: "20px auto",
         maxWidth: 500,
         flexGrow: 1,
         backgroundColor: (theme) =>
