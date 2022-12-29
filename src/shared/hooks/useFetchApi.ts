@@ -1,4 +1,3 @@
-import { isPending } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { axiosInstance } from "../../config/axios-interceptor";
@@ -18,6 +17,8 @@ const INITIAL_FETCH_VALUES: IUseFetchAPI = {
   error: null,
 };
 
+const URL_PATH = "/api";
+
 const useFetchAPI = () => {
   const [initialValues, setInitialValues] = useState(INITIAL_FETCH_VALUES);
 
@@ -25,7 +26,7 @@ const useFetchAPI = () => {
     switch (httpMethod) {
       case HTTP_METHOD.GET:
         axiosInstance
-          .get(`/api${path}`)
+          .get(`${URL_PATH}${path}`)
           .then((response) => {
             setInitialValues({
               data: response.data,
@@ -45,7 +46,7 @@ const useFetchAPI = () => {
         break;
       case HTTP_METHOD.POST:
         axiosInstance
-          .post(`/api${path}`, data)
+          .post(`${URL_PATH}${path}`, data)
           .then((response) => {
             setInitialValues({
               data: response.data,
