@@ -1,11 +1,18 @@
+import { useDispatch } from "react-redux";
 import { ICharacterModel } from "../../shared/model/Character";
+import { setPagination } from "../../store/slices/paginationSilice";
+import { AppDispatch } from "../../store/store";
 import CharacterComponent from "../character/character-component";
 import PaginationComponent from "../pagination/pagination";
 
 import "./styles.scss";
 
 const HomeComponent = (props: { characterEntity: ICharacterModel[] }) => {
-  const handlePagination = (value: number) => {};
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handlePagination = (value: number) => {
+    dispatch(setPagination(value));
+  };
 
   const GroupOfCharactersComponent = () => (
     <>

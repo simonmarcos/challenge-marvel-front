@@ -10,7 +10,7 @@ const PaginationComponent = (props: { handlePagination: any }) => {
   return (
     <Pagination
       page={page}
-      count={20}
+      count={78}
       renderItem={(item) => (
         <PaginationItem
           component={Link}
