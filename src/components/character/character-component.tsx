@@ -7,6 +7,8 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import { ICharacterModel } from "../../shared/model/Character";
+import { setCharacters } from "../../store/slices/characterSlice";
+import { useDispatch } from "react-redux";
 
 const Img = styled("img")({
   margin: "auto",
@@ -17,12 +19,14 @@ const Img = styled("img")({
 
 const CharacterComponent = (props: ICharacterModel) => {
   const [checked, setChecked] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     characterID: number
   ) => {
     setChecked(event.target.checked);
+    dispatch(setCharacters(characterID));
   };
 
   return (
