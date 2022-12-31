@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ButtonBase from "@mui/material/ButtonBase";
+import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import Checkbox from "@mui/material/Checkbox";
-import { ICharacterModel } from "../../shared/model/Character";
-import { setCharacters } from "../../store/slices/characterSlice";
 import { useDispatch } from "react-redux";
+import { ICharacterModel } from "../../shared/model/Character";
+import {
+  deleteCharacters,
+  setCharacters,
+} from "../../store/slices/characterSlice";
+import useCheckID from "./hook/useCheckID";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,15 +22,23 @@ const Img = styled("img")({
 });
 
 const CharacterComponent = (props: ICharacterModel) => {
-  const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    characterID: number
-  ) => {
-    setChecked(event.target.checked);
-    dispatch(setCharacters(characterID));
+  const valueChecked = useCheckID(props.id!);
+  const [checked, setChecked] = useState<boolean>(false);
+
+  useEffect(() => {
+    setChecked(valueChecked);
+  }, []);
+
+  const handleChange = () => {
+    if (checked) {
+      setChecked(false);
+      dispatch(deleteCharacters(props.id));
+    } else {
+      setChecked(true);
+      dispatch(setCharacters(props.id));
+    }
   };
 
   return (
@@ -64,9 +76,7 @@ const CharacterComponent = (props: ICharacterModel) => {
               </Typography>
               <Checkbox
                 checked={checked}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleChange(event, props.id!);
-                }}
+                onChange={handleChange}
                 inputProps={{ "aria-label": "controlled" }}
               />
             </Grid>

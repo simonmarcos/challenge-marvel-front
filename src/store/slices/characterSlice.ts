@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICharacterModel } from "../../shared/model/Character";
 export interface CharacterState {
-  characters: ICharacterModel[];
+  characters: number[];
   count: number;
 }
 
@@ -44,8 +43,14 @@ export const CharacterSlice = createSlice({
       state.characters.push(actions.payload);
       state.count = state.characters.length;
     },
+    deleteCharacters: (state, actions) => {
+      state.characters = state.characters.filter(
+        (character) => character !== actions.payload
+      );
+      state.count = state.characters.length;
+    },
   },
 });
 
-export const { setCharacters } = CharacterSlice.actions;
+export const { setCharacters, deleteCharacters } = CharacterSlice.actions;
 export default CharacterSlice.reducer;
