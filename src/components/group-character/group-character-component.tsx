@@ -1,4 +1,5 @@
 import { ICharacterModel } from "../../shared/model/Character";
+import FloatingActionButtonZoom from "../button/button-component";
 import CharacterComponent from "../character/character-component";
 import PaginationComponent from "../pagination/pagination";
 
@@ -27,6 +28,7 @@ const GroupCharactersComponent = (props: {
     <div className="container">
       <div className="group-of-characters">
         <GroupOfCharactersComponent />
+        <FloatingActionButtonZoom />
       </div>
       <div className="pagination">
         <PaginationComponent />
