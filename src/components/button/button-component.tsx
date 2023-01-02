@@ -4,7 +4,14 @@ import Fab from "@mui/material/Fab";
 import { useTheme } from "@mui/material/styles";
 import Zoom from "@mui/material/Zoom";
 import { SxProps } from "@mui/system";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ICharacterModel } from "../../shared/model/Character";
+import { IUserModel } from "../../shared/model/User";
+import {
+  ISaveCharacterModel,
+  saveCharacters
+} from "../../store/slices/characterSlice";
+import { AppDispatch, RootState } from "../../store/store";
 
 const fabStyle = {
   position: "absolute",
@@ -12,9 +19,17 @@ const fabStyle = {
   right: 16,
 };
 
-export default function FloatingActionButtonZoom() {
+export const FloatingActionButtonZoom = () => {
   const theme = useTheme();
-  const [value, setValue] = useState<number>(0);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const charactersEntity: ICharacterModel[] = useSelector(
+    (state: RootState) => state.characterSlice.characters
+  );
+
+  const userEntity: IUserModel = useSelector(
+    (state: RootState) => state.userSlice.user
+  );
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -30,7 +45,14 @@ export default function FloatingActionButtonZoom() {
     },
   ];
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    const saveEntityValues: ISaveCharacterModel = {
+      userID: userEntity.id!,
+      characters: charactersEntity,
+    };
+
+    dispatch(saveCharacters(saveEntityValues));
+  };
 
   return (
     <Box
@@ -41,15 +63,13 @@ export default function FloatingActionButtonZoom() {
         minHeight: 200,
       }}
     >
-      {fabs.map((fab, index) => (
+      {fabs.map((fab) => (
         <Zoom
           key={fab.color}
-          in={value === index}
+          in={true}
           timeout={transitionDuration}
           style={{
-            transitionDelay: `${
-              value === index ? transitionDuration.exit : 0
-            }ms`,
+            transitionDelay: `${transitionDuration.exit}ms`,
           }}
           onClick={handleClick}
           unmountOnExit
@@ -61,4 +81,6 @@ export default function FloatingActionButtonZoom() {
       ))}
     </Box>
   );
-}
+};
+
+export default FloatingActionButtonZoom;

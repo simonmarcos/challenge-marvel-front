@@ -34,10 +34,10 @@ const CharacterComponent = (props: ICharacterModel) => {
   const handleChange = () => {
     if (checked) {
       setChecked(false);
-      dispatch(deleteCharacters(props.id));
+      dispatch(deleteCharacters(props));
     } else {
       setChecked(true);
-      dispatch(setCharacters(props.id));
+      dispatch(setCharacters(props));
     }
   };
 

@@ -1,13 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
-export interface CharacterState {
-  characters: number[];
+import {
+  createAsyncThunk,
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected
+} from "@reduxjs/toolkit";
+import { axiosInstance } from "../../config/axios-interceptor";
+import {
+  ICharacterModel
+} from "../../shared/model/Character";
+
+export interface ISaveCharacterModel {
+  userID: number;
+  characters: ICharacterModel[];
+}
+export interface ICharacterState {
+  characters: ICharacterModel[];
   count: number;
+  isLoading: boolean;
+  isSuccess: boolean;
+  errorMessage: any;
 }
 
-const initialState: CharacterState = {
+const initialState: ICharacterState = {
   characters: [],
   count: 0,
+  isLoading: true,
+  isSuccess: false,
+  errorMessage: undefined,
 };
+
+const URL = "/api/character";
 
 // export const getEntitiesForMarvelAPI = createAsyncThunk(
 //   "character/fetch_list",
@@ -35,6 +58,16 @@ const initialState: CharacterState = {
 //   }
 // );
 
+export const saveCharacters = createAsyncThunk(
+  "character/save_entity",
+  async (data: ISaveCharacterModel) => {
+    return await axiosInstance.post<ICharacterModel>(
+      `${URL}/save?userId=${data.userID}`,
+      data.characters
+    );
+  }
+);
+
 export const CharacterSlice = createSlice({
   name: "character",
   initialState: initialState,
@@ -45,10 +78,24 @@ export const CharacterSlice = createSlice({
     },
     deleteCharacters: (state, actions) => {
       state.characters = state.characters.filter(
-        (character) => character !== actions.payload
+        (character) => character.marvelId !== actions.payload.id
       );
       state.count = state.characters.length;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(isPending(saveCharacters), (state) => {
+      state.isLoading = true;
+      state.errorMessage = null;
+    });
+    builder.addMatcher(isFulfilled(saveCharacters), (state) => {
+      state.isLoading = false;
+      state.errorMessage = null;
+    });
+    builder.addMatcher(isRejected(saveCharacters), (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message || "Se produjo un error";
+    });
   },
 });
 
