@@ -3,11 +3,12 @@ import {
   createSlice,
   isFulfilled,
   isPending,
-  isRejected
+  isRejected,
 } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axios-interceptor";
 import {
-  ICharacterMarvelModel, IQueryParamsCharacter
+  ICharacterMarvelModel,
+  IQueryParamsCharacter,
 } from "../../shared/model/Character";
 
 export interface ISaveCharacterModel {
@@ -50,16 +51,6 @@ export const getEntitiesByUser = createAsyncThunk(
   async (values: IQueryParamsCharacter) => {
     const requestUrl = `${API_URL}/findAllByUser?user=${values.userId}`;
     return (await axiosInstance.get<ICharacterMarvelModel[]>(requestUrl)).data;
-  }
-);
-
-export const saveCharacters = createAsyncThunk(
-  "character/save_entity",
-  async (data: any) => {
-    return await axiosInstance.post<ICharacterMarvelModel[]>(
-      `${API_URL}/save?userId=${data.userID}`,
-      data.characters
-    );
   }
 );
 
