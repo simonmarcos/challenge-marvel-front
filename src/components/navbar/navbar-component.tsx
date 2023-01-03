@@ -17,6 +17,7 @@ import { IUserModel } from "../../shared/model/User";
 import { RootState } from "../../store/store";
 
 import "./styles.scss";
+import Link from "@mui/material/Link/Link";
 
 interface INavbarItemsModel {
   title: string;
@@ -68,8 +69,7 @@ const NavbarComponent = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/home"
+            component="div"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -80,7 +80,9 @@ const NavbarComponent = () => {
               textDecoration: "none",
             }}
           >
-            <NavLink to={"/home"}>MARVEL</NavLink>
+            <NavLink id="RouterNavLink" to="/home">
+              MARVEL
+            </NavLink>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
