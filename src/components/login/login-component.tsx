@@ -14,13 +14,29 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useTranslation } from "react-i18next";
+import useInitializeState from "./hook/useInitializeStates";
+import { ILoginModel } from "../../shared/model/Login";
 
 const theme = createTheme();
 
-const LoginComponent = (props: {
-  handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
-}) => {
+const LoginComponent = () => {
+  const { authenticate } = useInitializeState();
   const { t: translate } = useTranslation("login");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const emailForm = formData.get("email")?.toString();
+    const passwordForm = formData.get("password")?.toString();
+
+    const loginData: ILoginModel = {
+      email: emailForm,
+      password: passwordForm,
+    };
+
+    authenticate(loginData);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,7 +58,7 @@ const LoginComponent = (props: {
           </Typography>
           <Box
             component="form"
-            onSubmit={props.handleSubmit}
+            onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
