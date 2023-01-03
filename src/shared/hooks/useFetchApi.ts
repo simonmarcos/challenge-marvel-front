@@ -22,9 +22,9 @@ const URL_PATH = "/api";
 const useFetchAPI = () => {
   const [initialValues, setInitialValues] = useState(INITIAL_FETCH_VALUES);
 
-  const execute = (httpMethod: string, path: string, data?: Object[]) => {
+  const execute = (httpMethod: string, path: string, data?: Object[] | Object) => {
     switch (httpMethod) {
-      case HTTP_METHOD.GET:
+      case HTTP_METHOD.get:
         axiosInstance
           .get(`${URL_PATH}${path}`)
           .then((response) => {
@@ -44,7 +44,7 @@ const useFetchAPI = () => {
             });
           });
         break;
-      case HTTP_METHOD.POST:
+      case HTTP_METHOD.post:
         axiosInstance
           .post(`${URL_PATH}${path}`, data)
           .then((response) => {

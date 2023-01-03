@@ -1,4 +1,4 @@
 export const HTTP_METHOD = {
-  POST: "post",
-  GET: "get",
+  post: "post",
+  get: "get",
 };

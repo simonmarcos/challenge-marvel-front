@@ -16,7 +16,7 @@ const CharacterPage = () => {
   );
 
   useEffect(() => {
-    execute(HTTP_METHOD.GET, `/character/findAllFromMarvelApi?page=${page}`);
+    execute(HTTP_METHOD.get, `/character/findAllFromMarvelApi?page=${page}`);
     return () => {
       cleanInitialValues();
     };

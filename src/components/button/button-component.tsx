@@ -4,14 +4,12 @@ import Fab from "@mui/material/Fab";
 import { useTheme } from "@mui/material/styles";
 import Zoom from "@mui/material/Zoom";
 import { SxProps } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
 import { IUserModel } from "../../shared/model/User";
-import {
-  ISaveCharacterModel,
-  saveCharacters,
-} from "../../store/slices/characterSlice";
-import { AppDispatch, RootState } from "../../store/store";
+import { HTTP_METHOD } from "../../shared/utils/const";
+import { RootState } from "../../store/store";
 
 const fabStyle = {
   position: "absolute",
@@ -21,7 +19,7 @@ const fabStyle = {
 
 export const FloatingActionButtonZoom = () => {
   const theme = useTheme();
-  const dispatch = useDispatch<AppDispatch>();
+  const { execute, cleanInitialValues } = useFetchAPI();
 
   const charactersEntity: ICharacterMarvelModel[] = useSelector(
     (state: RootState) => state.characterSlice.characters
@@ -46,12 +44,14 @@ export const FloatingActionButtonZoom = () => {
   ];
 
   const handleClick = () => {
-    const saveEntityValues: ISaveCharacterModel = {
-      userID: userEntity.id!,
-      characters: charactersEntity,
+    execute(
+      HTTP_METHOD.post,
+      `/character/save?userId=${userEntity.id}`,
+      charactersEntity
+    );
+    return () => {
+      cleanInitialValues();
     };
-
-    dispatch(saveCharacters(saveEntityValues));
   };
 
   return (
