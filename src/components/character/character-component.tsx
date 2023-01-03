@@ -29,7 +29,7 @@ const CharacterComponent = (props: ICharacterMarvelModel) => {
 
   useEffect(() => {
     setChecked(valueChecked);
-  }, []);
+  }, [valueChecked]);
 
   const handleChange = () => {
     if (checked) {

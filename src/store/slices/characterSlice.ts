@@ -3,12 +3,11 @@ import {
   createSlice,
   isFulfilled,
   isPending,
-  isRejected,
+  isRejected
 } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axios-interceptor";
 import {
-  ICharacterMarvelModel,
-  ICharacterModel,
+  ICharacterMarvelModel, IQueryParamsCharacter
 } from "../../shared/model/Character";
 
 export interface ISaveCharacterModel {
@@ -31,7 +30,7 @@ const initialState: ICharacterState = {
   errorMessage: undefined,
 };
 
-const URL = "/api/character";
+const API_URL = "/api/character";
 
 // export const getEntitiesForMarvelAPI = createAsyncThunk(
 //   "character/fetch_list",
@@ -46,24 +45,19 @@ const URL = "/api/character";
 //   }
 // );
 
-// export const getEntitiesByUser = createAsyncThunk(
-//   "character/fetch_list",
-//   async (values: IQueryParamsCharacter) => {
-//     const requestUrl = `${apiUrl}/findAllByUser?user=${values.userId}`;
-//     // ${
-//     //   values.sort &&
-//     //   `page=${values.page}&size=${values.size}&sort=${values.sort}`
-//     // }`;
-
-//     return await axiosInstance.get<ICharacterModel[]>(requestUrl);
-//   }
-// );
+export const getEntitiesByUser = createAsyncThunk(
+  "character/fetch_list_by_user",
+  async (values: IQueryParamsCharacter) => {
+    const requestUrl = `${API_URL}/findAllByUser?user=${values.userId}`;
+    return (await axiosInstance.get<ICharacterMarvelModel[]>(requestUrl)).data;
+  }
+);
 
 export const saveCharacters = createAsyncThunk(
   "character/save_entity",
   async (data: any) => {
-    return await axiosInstance.post<ICharacterModel>(
-      `${URL}/save?userId=${data.userID}`,
+    return await axiosInstance.post<ICharacterMarvelModel[]>(
+      `${API_URL}/save?userId=${data.userID}`,
       data.characters
     );
   }
@@ -85,17 +79,19 @@ export const CharacterSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(isPending(saveCharacters), (state) => {
+    builder.addMatcher(isPending(getEntitiesByUser), (state) => {
       state.isLoading = true;
       state.errorMessage = null;
     });
-    builder.addMatcher(isFulfilled(saveCharacters), (state) => {
+    builder.addMatcher(isFulfilled(getEntitiesByUser), (state, action) => {
       state.isLoading = false;
       state.errorMessage = null;
+      state.characters = action.payload;
     });
-    builder.addMatcher(isRejected(saveCharacters), (state, action) => {
+    builder.addMatcher(isRejected(getEntitiesByUser), (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.error.message || "Se produjo un error";
+      state.characters = [];
     });
   },
 });

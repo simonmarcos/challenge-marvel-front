@@ -3,7 +3,7 @@ import {
   createSlice,
   isFulfilled,
   isPending,
-  isRejected,
+  isRejected
 } from "@reduxjs/toolkit";
 import { IUserModel } from "../../shared/model/User";
 
@@ -12,12 +12,14 @@ export interface UserState {
   user: {};
   errorMessage: string | null;
   loading: boolean;
+  success: boolean;
 }
 
 const initialState: UserState = {
   user: {},
   errorMessage: null,
   loading: false,
+  success: false,
 };
 
 const apiUrl = "/api/user";
@@ -52,12 +54,14 @@ export const UserSlice = createSlice({
     builder.addMatcher(isPending(getEntity, getEntityByEmail), (state) => {
       state.loading = true;
       state.errorMessage = null;
+      state.success = false;
     });
     builder.addMatcher(
       isFulfilled(getEntity, getEntityByEmail),
       (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.success = true;
         state.errorMessage = null;
       }
     );
@@ -66,6 +70,7 @@ export const UserSlice = createSlice({
       (state, action) => {
         state.loading = false;
         state.user = {};
+        state.success = false;
         state.errorMessage = action.error.message || "Se produjo un error";
       }
     );
