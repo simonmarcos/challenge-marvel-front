@@ -3,19 +3,20 @@ import {
   createSlice,
   isFulfilled,
   isPending,
-  isRejected
+  isRejected,
 } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axios-interceptor";
 import {
-  ICharacterModel
+  ICharacterMarvelModel,
+  ICharacterModel,
 } from "../../shared/model/Character";
 
 export interface ISaveCharacterModel {
   userID: number;
-  characters: ICharacterModel[];
+  characters: ICharacterMarvelModel[];
 }
 export interface ICharacterState {
-  characters: ICharacterModel[];
+  characters: ICharacterMarvelModel[];
   count: number;
   isLoading: boolean;
   isSuccess: boolean;
@@ -60,7 +61,7 @@ const URL = "/api/character";
 
 export const saveCharacters = createAsyncThunk(
   "character/save_entity",
-  async (data: ISaveCharacterModel) => {
+  async (data: any) => {
     return await axiosInstance.post<ICharacterModel>(
       `${URL}/save?userId=${data.userID}`,
       data.characters
@@ -78,7 +79,7 @@ export const CharacterSlice = createSlice({
     },
     deleteCharacters: (state, actions) => {
       state.characters = state.characters.filter(
-        (character) => character.marvelId !== actions.payload.id
+        (character) => character.marvelId !== actions.payload.marvelId
       );
       state.count = state.characters.length;
     },

@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
-import { ICharacterModel } from "../../shared/model/Character";
+import { ICharacterMarvelModel } from "../../shared/model/Character";
 import {
   deleteCharacters,
   setCharacters,
@@ -21,10 +21,10 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-const CharacterComponent = (props: ICharacterModel) => {
+const CharacterComponent = (props: ICharacterMarvelModel) => {
   const dispatch = useDispatch();
 
-  const valueChecked = useCheckID(props.id!);
+  const valueChecked = useCheckID(props.marvelId!);
   const [checked, setChecked] = useState<boolean>(false);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const CharacterComponent = (props: ICharacterModel) => {
                   : "Sin descripción"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                ID: {props.id}
+                ID: {props.marvelId}
               </Typography>
               <Checkbox
                 checked={checked}

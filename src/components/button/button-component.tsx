@@ -5,11 +5,11 @@ import { useTheme } from "@mui/material/styles";
 import Zoom from "@mui/material/Zoom";
 import { SxProps } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { ICharacterModel } from "../../shared/model/Character";
+import { ICharacterMarvelModel } from "../../shared/model/Character";
 import { IUserModel } from "../../shared/model/User";
 import {
   ISaveCharacterModel,
-  saveCharacters
+  saveCharacters,
 } from "../../store/slices/characterSlice";
 import { AppDispatch, RootState } from "../../store/store";
 
@@ -23,7 +23,7 @@ export const FloatingActionButtonZoom = () => {
   const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
 
-  const charactersEntity: ICharacterModel[] = useSelector(
+  const charactersEntity: ICharacterMarvelModel[] = useSelector(
     (state: RootState) => state.characterSlice.characters
   );
 

@@ -1,4 +1,6 @@
-import { ICharacterModel } from "../../shared/model/Character";
+import {
+  ICharacterMarvelModel
+} from "../../shared/model/Character";
 import FloatingActionButtonZoom from "../button/button-component";
 import CharacterComponent from "../character/character-component";
 import PaginationComponent from "../pagination/pagination";
@@ -6,15 +8,15 @@ import PaginationComponent from "../pagination/pagination";
 import "./styles.scss";
 
 const GroupCharactersComponent = (props: {
-  characterEntity: ICharacterModel[];
+  characterEntity: ICharacterMarvelModel[];
 }) => {
   const GroupOfCharactersComponent = () => (
     <>
-      {props.characterEntity.map((character: ICharacterModel) => {
+      {props.characterEntity.map((character: ICharacterMarvelModel) => {
         return (
           <CharacterComponent
-            key={`index ${character.id}`}
-            id={character.id}
+            key={`index ${character.marvelId}`}
+            marvelId={character.marvelId}
             name={character.name}
             description={character.description}
             thumbnail={character.thumbnail}
