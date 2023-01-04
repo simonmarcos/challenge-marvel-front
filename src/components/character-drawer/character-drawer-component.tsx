@@ -1,5 +1,6 @@
+import BackspaceIcon from "@mui/icons-material/Backspace";
+import Button from "@mui/material/Button";
 import ButtonBase from "@mui/material/ButtonBase";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -9,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
 import {
   deleteCharacters,
-  setCharacters,
+  setCharacters
 } from "../../store/slices/characterSlice";
 import { AppDispatch } from "../../store/store";
 import useCheckID from "../character/hook/useCheckID";
@@ -71,11 +72,12 @@ const CharacterDrawerComponent = (props: {
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
               </Typography>
-              <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-              />
+              <Button
+                style={{ display: "flex", margin: "0 auto" }}
+                onClick={handleChange}
+              >
+                <BackspaceIcon />
+              </Button>
             </Grid>
           </Grid>
         </Grid>
