@@ -34,7 +34,7 @@ const useInitializeState = () => {
   useEffect(() => {
     if (isSuccessUserSaved) {
       dispatch(getEntitiesByUser({ userId: userEntity.id! }));
-      navigate("/home");
+      navigate("/character");
     }
   }, [isSuccessUserSaved]);
 
