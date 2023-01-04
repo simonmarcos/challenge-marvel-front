@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
-
 import ButtonBase from "@mui/material/ButtonBase";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
-import {
-  deleteCharacters,
-  setCharacters,
-} from "../../store/slices/characterSlice";
-import useCheckID from "./hook/useCheckID";
 
 const Img = styled("img")({
   margin: "auto",
@@ -21,33 +12,16 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-const CharacterComponent = (props: {character: ICharacterMarvelModel}) => {
-  const dispatch = useDispatch();
-
-  const valueChecked = useCheckID(props.character.marvelId!);
-  const [checked, setChecked] = useState<boolean>(false);
-
-  useEffect(() => {
-    setChecked(valueChecked);
-  }, [valueChecked]);
-
-  const handleChange = () => {
-    if (checked) {
-      setChecked(false);
-      dispatch(deleteCharacters(props.character));
-    } else {
-      setChecked(true);
-      dispatch(setCharacters(props.character));
-    }
-  };
-
+const CharacterMiniComponent = (props: {
+  character: ICharacterMarvelModel;
+}) => {
   return (
     <Paper
       sx={{
         p: 3,
         margin: "20px auto",
-        maxWidth: 500,
-        minWidth: 500,
+        maxWidth: 150,
+        minWidth: 150,
         flexGrow: 1,
         borderRadius: 3,
         backgroundColor: (theme) =>
@@ -66,19 +40,9 @@ const CharacterComponent = (props: {character: ICharacterMarvelModel}) => {
               <Typography gutterBottom variant="subtitle1" component="div">
                 {props.character.name}
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                {props.character.description !== ""
-                  ? props.character.description
-                  : "Sin descripción"}
-              </Typography>
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
               </Typography>
-              <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-              />
             </Grid>
           </Grid>
         </Grid>
@@ -87,4 +51,4 @@ const CharacterComponent = (props: {character: ICharacterMarvelModel}) => {
   );
 };
 
-export default CharacterComponent;
+export default CharacterMiniComponent;
