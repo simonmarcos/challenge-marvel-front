@@ -1,18 +1,11 @@
-import { useEffect, useState } from "react";
-
 import ButtonBase from "@mui/material/ButtonBase";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
-import {
-  deleteCharacters,
-  setCharacters
-} from "../../store/slices/characterSlice";
-import useCheckID from "./hook/useCheckID";
+import useSetCharacterStore from "./hook/useSetCharacterStore";
 
 const Img = styled("img")({
   margin: "auto",
@@ -22,23 +15,12 @@ const Img = styled("img")({
 });
 
 const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
-  const dispatch = useDispatch();
-
-  const valueChecked = useCheckID(props.character.marvelId!);
-  const [checked, setChecked] = useState<boolean>(false);
-
-  useEffect(() => {
-    setChecked(valueChecked);
-  }, [valueChecked]);
+  const { checked, handleEvent } = useSetCharacterStore({
+    character: props.character,
+  });
 
   const handleChange = () => {
-    if (checked) {
-      setChecked(false);
-      dispatch(deleteCharacters(props.character));
-    } else {
-      setChecked(true);
-      dispatch(setCharacters(props.character));
-    }
+    handleEvent();
   };
 
   return (
