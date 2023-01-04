@@ -10,7 +10,7 @@ const DrawerComponent = () => {
     (state: RootState) => state.characterSlice.characters
   );
 
-  return charactersEntity.length > 0 ? (
+  return (
     <Paper
       style={{
         border: 5,
@@ -22,23 +22,27 @@ const DrawerComponent = () => {
       }}
     >
       <Typography variant="h6" component="p" style={{ textAlign: "center" }}>
-        MIS SELECCIONES
+        {charactersEntity.length > 0
+          ? "MIS SELECCIONES"
+          : "SELECCIONE PERSONAJES PARA SU PERFIL"}
       </Typography>
       <div>
         <FloatingActionButtonZoom />
       </div>
-      <List>
-        {charactersEntity.map((character: ICharacterMarvelModel) => {
-          return (
-            <CharacterDrawerComponent
-              key={`index ${character.marvelId}`}
-              character={character}
-            />
-          );
-        })}
-      </List>
+      {charactersEntity.length > 0 ? (
+        <List>
+          {charactersEntity.map((character: ICharacterMarvelModel) => {
+            return (
+              <CharacterDrawerComponent
+                key={`index ${character.marvelId}`}
+                character={character}
+              />
+            );
+          })}
+        </List>
+      ) : null}
     </Paper>
-  ) : null;
+  );
 };
 
 export default DrawerComponent;
