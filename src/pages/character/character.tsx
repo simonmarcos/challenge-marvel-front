@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import GroupCharactersComponent from "../../components/group-character/group-character-component";
+import ManageCharactersComponent from "../../components/manage-character/manage-character-component";
 import SnipperComponent from "../../components/spinner/spiner";
 import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
@@ -23,7 +23,7 @@ const CharacterPage = () => {
   }, [page]);
 
   return !isPending ? (
-    <GroupCharactersComponent characterEntity={characterEntity} />
+    <ManageCharactersComponent characterEntity={characterEntity} />
   ) : (
     <SnipperComponent />
   );

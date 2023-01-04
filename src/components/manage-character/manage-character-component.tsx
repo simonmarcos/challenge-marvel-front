@@ -5,7 +5,7 @@ import PaginationComponent from "../pagination/pagination";
 
 import "./styles.scss";
 
-const GroupCharactersComponent = (props: {
+const ManageCharactersComponent = (props: {
   characterEntity: ICharacterMarvelModel[];
 }) => {
   const GroupOfCharactersComponent = () => (
@@ -33,4 +33,4 @@ const GroupCharactersComponent = (props: {
   );
 };
 
-export default GroupCharactersComponent;
+export default ManageCharactersComponent;
