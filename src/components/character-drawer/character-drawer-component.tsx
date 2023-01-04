@@ -12,7 +12,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-const CharacterMiniComponent = (props: {
+const CharacterDrawerComponent = (props: {
   character: ICharacterMarvelModel;
 }) => {
   return (
@@ -51,4 +51,4 @@ const CharacterMiniComponent = (props: {
   );
 };
 
-export default CharacterMiniComponent;
+export default CharacterDrawerComponent;

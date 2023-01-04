@@ -1,21 +1,14 @@
-import AddIcon from "@mui/icons-material/Add";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import { useTheme } from "@mui/material/styles";
 import Zoom from "@mui/material/Zoom";
-import { SxProps } from "@mui/system";
 import { useSelector } from "react-redux";
 import useFetchAPI from "../../shared/hooks/useFetchApi";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
 import { IUserModel } from "../../shared/model/User";
 import { HTTP_METHOD } from "../../shared/utils/const";
 import { RootState } from "../../store/store";
-
-const fabStyle = {
-  position: "absolute",
-  bottom: 16,
-  right: 16,
-};
 
 export const FloatingActionButtonZoom = () => {
   const theme = useTheme();
@@ -37,8 +30,7 @@ export const FloatingActionButtonZoom = () => {
   const fabs = [
     {
       color: "primary" as "primary",
-      sx: fabStyle as SxProps,
-      icon: <AddIcon />,
+      icon: <SaveAsIcon />,
       label: "Add",
     },
   ];
@@ -58,9 +50,9 @@ export const FloatingActionButtonZoom = () => {
     <Box
       sx={{
         bgcolor: "background.paper",
-        width: 500,
-        position: "relative",
-        minHeight: 200,
+        width: 100,
+        margin: "15px auto",
+        textAlign: "center",
       }}
     >
       {fabs.map((fab) => (
@@ -74,7 +66,7 @@ export const FloatingActionButtonZoom = () => {
           onClick={handleClick}
           unmountOnExit
         >
-          <Fab sx={fab.sx} aria-label={fab.label} color={fab.color}>
+          <Fab aria-label={fab.label} color={fab.color}>
             {fab.icon}
           </Fab>
         </Zoom>

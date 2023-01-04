@@ -1,5 +1,4 @@
 import { ICharacterMarvelModel } from "../../shared/model/Character";
-import FloatingActionButtonZoom from "../button/button-component";
 import CharacterComponent from "../character/character-component";
 import DrawerComponent from "../drawer/drawer-component";
 import PaginationComponent from "../pagination/pagination";
@@ -25,7 +24,6 @@ const GroupCharactersComponent = (props: {
       <div className="characters">
         <div className="group-of-characters">
           <GroupOfCharactersComponent />
-          <FloatingActionButtonZoom />
         </div>
         <div className="pagination">
           <PaginationComponent />
