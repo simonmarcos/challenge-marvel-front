@@ -29,7 +29,12 @@ const DrawerComponent = () => {
       </div>
       <List>
         {charactersEntity.map((character: ICharacterMarvelModel) => {
-          return <CharacterDrawerComponent character={character} />;
+          return (
+            <CharacterDrawerComponent
+              key={`index ${character.marvelId}`}
+              character={character}
+            />
+          );
         })}
       </List>
     </Paper>

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
 import {
   deleteCharacters,
-  setCharacters,
+  setCharacters
 } from "../../store/slices/characterSlice";
 import useCheckID from "./hook/useCheckID";
 
@@ -21,7 +21,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-const CharacterComponent = (props: {character: ICharacterMarvelModel}) => {
+const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
   const dispatch = useDispatch();
 
   const valueChecked = useCheckID(props.character.marvelId!);
@@ -46,8 +46,10 @@ const CharacterComponent = (props: {character: ICharacterMarvelModel}) => {
       sx={{
         p: 3,
         margin: "20px auto",
-        maxWidth: 500,
-        minWidth: 500,
+        maxWidth: 450,
+        minWidth: 450,
+        minHeight: 100,
+        maxHeight: 200,
         flexGrow: 1,
         borderRadius: 3,
         backgroundColor: (theme) =>
