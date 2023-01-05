@@ -13,7 +13,7 @@ import drawer_en from "../i18n/en/drawer.json";
 
 i18next.use(initReactI18next).init({
   interpolation: { escapeValue: false },
-  lng: "en",
+  lng: "es",
   resources: {
     es: {
       global: global_es,
