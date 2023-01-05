@@ -16,9 +16,9 @@ const DrawerComponent = () => {
     <Paper
       style={{
         border: 5,
-        borderColor: "red",
         marginTop: 20,
         maxHeight: 1500,
+        maxWidth: 195,
         overflow: "auto",
         padding: 20,
       }}
