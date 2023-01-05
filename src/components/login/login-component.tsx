@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,16 +13,29 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useTranslation } from "react-i18next";
+import useInitializeState from "./hook/useInitializeStates";
+import { ILoginModel } from "../../shared/model/Login";
+
 const theme = createTheme();
 
 const LoginComponent = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { authenticate } = useInitializeState();
+  const { t: translate } = useTranslation("login");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const formData = new FormData(event.currentTarget);
+
+    const emailForm = formData.get("email")?.toString();
+    const passwordForm = formData.get("password")?.toString();
+
+    const loginData: ILoginModel = {
+      email: emailForm,
+      password: passwordForm,
+    };
+
+    authenticate(loginData);
   };
 
   return (
@@ -41,7 +54,7 @@ const LoginComponent = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {translate("app.login.title")}
           </Typography>
           <Box
             component="form"
@@ -54,7 +67,7 @@ const LoginComponent = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={translate("app.login.label.email")}
               name="email"
               autoComplete="email"
               autoFocus
@@ -64,14 +77,14 @@ const LoginComponent = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={translate("app.login.label.password")}
               type="password"
               id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label={translate("app.login.label.rememberMe")}
             />
             <Button
               type="submit"
@@ -79,17 +92,17 @@ const LoginComponent = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {translate("app.login.label.signInButton")}
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  {translate("app.login.label.forgotPassword")}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {translate("app.login.label.signUp")}
                 </Link>
               </Grid>
             </Grid>

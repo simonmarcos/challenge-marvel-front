@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import characterSlice from "./slices/characterSlice";
+import CharacterSlice from "./slices/characterSlice";
+import authenticationSlice from "./slices/authenticationSlice";
+import userSlice from "./slices/userSlice";
+import paginationSlice from "./slices/paginationSilice";
 
 export const store = configureStore({
   reducer: {
-    characterSlice,
+    characterSlice: CharacterSlice,
+    authenticationSlice,
+    userSlice,
+    paginationSlice,
   },
 });
 

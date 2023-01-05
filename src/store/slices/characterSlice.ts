@@ -1,55 +1,91 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  ICharacterModel,
+  createAsyncThunk,
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from "@reduxjs/toolkit";
+import { axiosInstance } from "../../config/axios-interceptor";
+import {
+  ICharacterMarvelModel,
   IQueryParamsCharacter,
 } from "../../shared/model/Character";
-import { axiosInstance } from "../../config/axios-interceptor";
-export interface CharacterState {
-  characters: ICharacterModel[];
-  error: string;
-  loading: boolean;
+
+export interface ISaveCharacterModel {
+  userID: number;
+  characters: ICharacterMarvelModel[];
+}
+export interface ICharacterState {
+  characters: ICharacterMarvelModel[];
+  count: number;
+  isLoading: boolean;
+  isSuccess: boolean;
+  errorMessage: any;
 }
 
-const initialState: CharacterState = {
+const initialState: ICharacterState = {
   characters: [],
-  error: "",
-  loading: false,
+  count: 0,
+  isLoading: true,
+  isSuccess: false,
+  errorMessage: undefined,
 };
 
-const apiUrl = "character";
+const API_URL = "/api/character";
 
-export const getEntities = createAsyncThunk(
-  "character/fetch_list",
+// export const getEntitiesForMarvelAPI = createAsyncThunk(
+//   "character/fetch_list",
+//   async (values: IQueryParamsCharacter) => {
+//     const requestUrl = `${apiUrl}/findAllFromMarvelApi`;
+//     // ${
+//     //   values.sort &&
+//     //   `page=${values.page}&size=${values.size}&sort=${values.sort}`
+//     // }`;
+
+//     return await axiosInstance.get<ICharacterModel[]>(requestUrl);
+//   }
+// );
+
+export const getEntitiesByUser = createAsyncThunk(
+  "character/fetch_list_by_user",
   async (values: IQueryParamsCharacter) => {
-    const requestUrl = `${apiUrl}/findAllByUser?user=${values.userId}`;
-    // ${
-    //   values.sort &&
-    //   `page=${values.page}&size=${values.size}&sort=${values.sort}`
-    // }`;
-
-    return await axiosInstance.get<ICharacterModel[]>(requestUrl);
+    const requestUrl = `${API_URL}/findAllByUser?user=${values.userId}`;
+    return (await axiosInstance.get<ICharacterMarvelModel[]>(requestUrl)).data;
   }
 );
 
-export const characterSlice = createSlice({
+export const CharacterSlice = createSlice({
   name: "character",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setCharacters: (state, actions) => {
+      state.characters.push(actions.payload);
+      state.count = state.characters.length;
+    },
+    deleteCharacters: (state, actions) => {
+      state.characters = state.characters.filter(
+        (character) => character.marvelId !== actions.payload.marvelId
+      );
+      state.count = state.characters.length;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(getEntities.pending, (state) => {
-      state.loading = true;
+    builder.addMatcher(isPending(getEntitiesByUser), (state) => {
+      state.isLoading = true;
+      state.errorMessage = null;
     });
-    builder.addCase(getEntities.fulfilled, (state, action) => {
-      state.loading = false;
-      state.characters = action.payload.data;
-      state.error = "";
+    builder.addMatcher(isFulfilled(getEntitiesByUser), (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = null;
+      state.characters = action.payload;
     });
-    builder.addCase(getEntities.rejected, (state, action) => {
-      state.loading = false;
+    builder.addMatcher(isRejected(getEntitiesByUser), (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message || "Se produjo un error";
       state.characters = [];
-      state.error = action.error.message || "Se produjo un error";
     });
   },
 });
 
-export default characterSlice.reducer;
+export const { setCharacters, deleteCharacters } = CharacterSlice.actions;
+export default CharacterSlice.reducer;

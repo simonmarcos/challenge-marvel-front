@@ -1,0 +1,24 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    gap: 20px;
+}
+
+.characters {
+    display: grid;
+    grid-template-rows: 12fr 1fr;
+    gap: 40px;
+}
+
+.group-of-characters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media (min-width: 1500px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.pagination {
+    margin: 0 auto;
+}

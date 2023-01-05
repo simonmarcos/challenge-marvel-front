@@ -6,7 +6,13 @@ export interface ICharacterModel {
   thumbnail?: string | null;
   marvelId?: string | null;
 }
-
+export interface ICharacterMarvelModel {
+  marvelId?: number | null;
+  name?: string | null;
+  description?: string | null;
+  modified?: string | null;
+  thumbnail?: string | null;
+}
 export interface IQueryParamsCharacter {
   query?: string;
   page?: number;
