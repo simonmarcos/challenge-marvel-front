@@ -1,5 +1,7 @@
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import StarPurple500Icon from "@mui/icons-material/StarPurple500";
+import { Button } from "@mui/material";
 import ButtonBase from "@mui/material/ButtonBase";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -20,7 +22,7 @@ const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
   });
 
   const handleChange = () => {
-    handleEvent();
+    if (!checked) handleEvent();
   };
 
   return (
@@ -58,11 +60,21 @@ const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
               </Typography>
-              <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-              />
+              {checked ? (
+                <Button
+                  style={{ display: "flex", margin: "0 auto" }}
+                  onClick={handleChange}
+                >
+                  <StarPurple500Icon />
+                </Button>
+              ) : (
+                <Button
+                  style={{ display: "flex", margin: "0 auto" }}
+                  onClick={handleChange}
+                >
+                  <AddCircleOutlineIcon />
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Grid>
