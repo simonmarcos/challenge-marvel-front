@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
+import useDeleteCharacter from "../character/hook/useDeleteCharacter";
 import useSetCharacterStore from "../character/hook/useSetCharacterStore";
 
 const Img = styled("img")({
@@ -18,12 +20,17 @@ const Img = styled("img")({
 const CharacterDrawerComponent = (props: {
   character: ICharacterMarvelModel;
 }) => {
-  const { handleEvent } = useSetCharacterStore({
-    character: props.character,
+  const { handleEvent } = useSetCharacterStore({ character: props.character });
+  const { isSuccess, deleteCharacter } = useDeleteCharacter({
+    marvelId: props.character.marvelId!,
   });
 
+  useEffect(() => {
+    if (isSuccess) handleEvent();
+  }, [isSuccess]);
+
   const handleChange = () => {
-    handleEvent();
+    deleteCharacter();
   };
 
   return (
