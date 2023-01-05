@@ -11,7 +11,12 @@ const ManageCharactersComponent = (props: {
   const GroupOfCharactersComponent = () => (
     <>
       {props.characterEntity.map((character: ICharacterMarvelModel) => {
-        return <CharacterComponent character={character} />;
+        return (
+          <CharacterComponent
+            key={`index ${character.marvelId}`}
+            character={character}
+          />
+        );
       })}
     </>
   );
