@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
+import ButtonSelectedComponent from "../button/button-selected";
 import useDeleteCharacter from "../character/hook/useDeleteCharacter";
 import useSetCharacterStore from "../character/hook/useSetCharacterStore";
 
@@ -61,12 +62,10 @@ const CharacterDrawerComponent = (props: {
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
               </Typography>
-              <Button
-                style={{ display: "flex", margin: "0 auto" }}
-                onClick={handleChange}
-              >
-                <BackspaceIcon />
-              </Button>
+              <ButtonSelectedComponent
+                handleChange={handleChange}
+                icon={<BackspaceIcon />}
+              />
             </Grid>
           </Grid>
         </Grid>

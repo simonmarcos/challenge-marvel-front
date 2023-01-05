@@ -1,12 +1,12 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import StarPurple500Icon from "@mui/icons-material/StarPurple500";
-import { Button } from "@mui/material";
 import ButtonBase from "@mui/material/ButtonBase";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
+import ButtonSelectedComponent from "../button/button-selected";
 import useSetCharacterStore from "./hook/useSetCharacterStore";
 
 const Img = styled("img")({
@@ -60,21 +60,12 @@ const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
               </Typography>
-              {checked ? (
-                <Button
-                  style={{ display: "flex", margin: "0 auto" }}
-                  onClick={handleChange}
-                >
-                  <StarPurple500Icon />
-                </Button>
-              ) : (
-                <Button
-                  style={{ display: "flex", margin: "0 auto" }}
-                  onClick={handleChange}
-                >
-                  <AddCircleOutlineIcon />
-                </Button>
-              )}
+              <ButtonSelectedComponent
+                handleChange={handleChange}
+                icon={
+                  checked ? <StarPurple500Icon /> : <AddCircleOutlineIcon />
+                }
+              />
             </Grid>
           </Grid>
         </Grid>
