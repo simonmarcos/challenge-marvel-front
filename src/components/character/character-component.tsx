@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 import { ICharacterMarvelModel } from "../../shared/model/Character";
 import ButtonSelectedComponent from "../button/button-selected";
 import useSetCharacterStore from "./hook/useSetCharacterStore";
@@ -19,6 +20,7 @@ const Img = styled("img")({
 });
 
 const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
+  const { t: translate } = useTranslation("character");
   const { checked, handleEvent } = useSetCharacterStore({
     character: props.character,
   });
@@ -58,7 +60,7 @@ const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
               <Typography variant="body2" gutterBottom>
                 {props.character.description !== ""
                   ? props.character.description
-                  : "Sin descripción"}
+                  : translate("app.character.cards.description")}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 ID: {props.character.marvelId}
