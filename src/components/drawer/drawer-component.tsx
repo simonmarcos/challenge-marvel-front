@@ -26,20 +26,23 @@ const DrawerComponent = () => {
           ? "MIS SELECCIONES"
           : "SELECCIONE PERSONAJES PARA SU PERFIL"}
       </Typography>
-      <div>
-        <FloatingActionButtonZoom />
-      </div>
+
       {charactersEntity.length > 0 ? (
-        <List>
-          {charactersEntity.map((character: ICharacterMarvelModel) => {
-            return (
-              <CharacterDrawerComponent
-                key={`index ${character.marvelId}`}
-                character={character}
-              />
-            );
-          })}
-        </List>
+        <>
+          <div>
+            <FloatingActionButtonZoom />
+          </div>
+          <List>
+            {charactersEntity.map((character: ICharacterMarvelModel) => {
+              return (
+                <CharacterDrawerComponent
+                  key={`index ${character.marvelId}`}
+                  character={character}
+                />
+              );
+            })}
+          </List>
+        </>
       ) : null}
     </Paper>
   );
