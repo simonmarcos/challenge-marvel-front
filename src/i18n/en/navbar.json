@@ -1,0 +1,12 @@
+{
+  "app": {
+    "navbar": {
+      "title": "MARVEL",
+      "items": {
+        "character": "Characters",
+        "myprofile": "My profile"
+      },
+      "welcome": "!Welcome"
+    }
+  }
+}

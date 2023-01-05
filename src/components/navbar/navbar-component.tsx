@@ -17,7 +17,7 @@ import { IUserModel } from "../../shared/model/User";
 import { RootState } from "../../store/store";
 
 import "./styles.scss";
-import Link from "@mui/material/Link/Link";
+import { useTranslation } from "react-i18next";
 
 interface INavbarItemsModel {
   title: string;
@@ -25,14 +25,15 @@ interface INavbarItemsModel {
 }
 
 const navbarItems: INavbarItemsModel[] = [
-  { title: "Characters", path: "/character" },
-  { title: "My profile", path: "/myprofile" },
+  { title: "character", path: "/character" },
+  { title: "myprofile", path: "/my-profile" },
 ];
 
 const settings = ["Logout"];
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
+  const { t: translate } = useTranslation("navbar");
 
   const userEntity: IUserModel = useSelector(
     (state: RootState) => state.userSlice.user
@@ -117,7 +118,7 @@ const NavbarComponent = () => {
               {navbarItems.map((item) => (
                 <MenuItem key={item.title}>
                   <NavLink to={`${item.path}?page=${page}`}>
-                    {item.title}
+                    {translate(`app.navbar.items.${item.title}`)}
                   </NavLink>
                 </MenuItem>
               ))}
@@ -138,7 +139,7 @@ const NavbarComponent = () => {
               textDecoration: "none",
             }}
           >
-            <NavLink to={"/home"}>MARVEL</NavLink>
+            <NavLink to={"/home"}>{translate(`app.navbar.title`)}</NavLink>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navbarItems.map((item) => (
@@ -146,12 +147,16 @@ const NavbarComponent = () => {
                 key={item.title}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <NavLink to={`${item.path}?page=${page}`}>{item.title}</NavLink>
+                <NavLink to={`${item.path}?page=${page}`}>
+                  {translate(`app.navbar.items.${item.title}`)}
+                </NavLink>
               </Button>
             ))}
           </Box>
           <Typography textAlign="center">
-            {`¡Bienvenido, ${userEntity.firstName} ${userEntity.lastName}!`}
+            {`¡${translate(`app.navbar.welcome`)}, ${userEntity.firstName} ${
+              userEntity.lastName
+            }!`}
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Menu

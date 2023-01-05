@@ -12,11 +12,16 @@
 
 .group-of-characters {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
 
-    @media (min-width: 1500px) {
+    @media (min-width: 800px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: 1540px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
+
 }
 
 .pagination {
