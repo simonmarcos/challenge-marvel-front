@@ -17,7 +17,6 @@ import { IUserModel } from "../../shared/model/User";
 import { RootState } from "../../store/store";
 
 import "./styles.scss";
-import Link from "@mui/material/Link/Link";
 
 interface INavbarItemsModel {
   title: string;
@@ -26,7 +25,7 @@ interface INavbarItemsModel {
 
 const navbarItems: INavbarItemsModel[] = [
   { title: "Characters", path: "/character" },
-  { title: "My profile", path: "/myprofile" },
+  { title: "My profile", path: "/my-profile" },
 ];
 
 const settings = ["Logout"];
