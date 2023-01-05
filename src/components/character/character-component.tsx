@@ -9,6 +9,8 @@ import { ICharacterMarvelModel } from "../../shared/model/Character";
 import ButtonSelectedComponent from "../button/button-selected";
 import useSetCharacterStore from "./hook/useSetCharacterStore";
 
+import "./styles.scss";
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -27,6 +29,7 @@ const CharacterComponent = (props: { character: ICharacterMarvelModel }) => {
 
   return (
     <Paper
+      className={checked ? "paper-checked" : ""}
       sx={{
         p: 3,
         margin: "20px auto",
